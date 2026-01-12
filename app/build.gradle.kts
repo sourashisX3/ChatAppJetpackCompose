@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -34,12 +36,20 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+        }
     }
     buildFeatures {
         compose = true
     }
+}
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("room.incremental", "true")
+    arg("room.generateKotlin", "true")
 }
 
 dependencies {
@@ -59,9 +69,50 @@ dependencies {
     implementation(libs.supabase.auth)
     implementation(libs.supabase.realtime)
 
+    // --- constraint layout ---
+    implementation(libs.androidx.constraintlayout.compose)
+
+    // --- hilt dependency ---
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
+
+    // --- Navigation compose ---
+    implementation(libs.androidx.navigation.compose)
+
+    // --- coil ---
+    implementation(libs.coil.compose)
+
+    // --- gson ---
+    implementation(libs.gson)
+
+    // --- retrofit ---
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+
+    // --- room ---
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
     // --- Ktor ---
     implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.websockets)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.client.logging)
 
+    // --- kotlinx serialization & coroutines ---
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+    // --- Lifecycle / ViewModel helpers ---
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    // --- Logging (Timber) ---
+    implementation(libs.timber)
 
     // --- Testing ---
     testImplementation(libs.junit)
