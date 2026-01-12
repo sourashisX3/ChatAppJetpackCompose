@@ -111,6 +111,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
+    // --- Lottie ---
+    implementation(libs.lottie.compose)
+
     // --- Logging (Timber) ---
     implementation(libs.timber)
 

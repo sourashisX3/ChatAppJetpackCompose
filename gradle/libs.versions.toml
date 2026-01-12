@@ -46,6 +46,9 @@ retrofitConverterGson = "3.0.0"
 room = "2.8.4"
 roomCompiler = "2.8.4"
 
+# Lottie
+lottieCompose = "6.3.0"
+
 # Timber (logging)
 timber = "5.0.1"
 
@@ -114,6 +117,9 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 # Lifecycle / ViewModel extras
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
+
+# Lottie Compose
+lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottieCompose" }
 
 # Timber (logging)
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
