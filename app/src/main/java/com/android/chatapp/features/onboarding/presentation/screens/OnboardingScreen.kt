@@ -2,6 +2,7 @@
 
 package com.android.chatapp.features.onboarding.presentation.screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -51,6 +52,7 @@ fun OnboardingScreen(
             .verticalScroll(state = scrollState)
             .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         LottieAnimation(
             composition = composition,
@@ -83,7 +85,7 @@ fun OnboardingScreen(
             modifier = Modifier
                 .padding(bottom = 32.dp),
             buttonName = "Create an account",
-            onButtonClick = { /* TODO: Handle button click */ },
+            onButtonClick = { navController.navigate(Screen.SignUp.route) },
             outlined = true,
         )
     }
