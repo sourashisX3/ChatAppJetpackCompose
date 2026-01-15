@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.android.chatapp.features.auth.presentation.screens.SignInScreen
 import com.android.chatapp.features.auth.presentation.screens.SignUpScreen
+import com.android.chatapp.features.navbar.home.presentation.screens.HomeScreen
 import com.android.chatapp.features.onboarding.presentation.screens.OnboardingScreen
 
 @Composable
@@ -24,5 +25,6 @@ fun InitNavGraph(
         composable(route = Screen.Onboarding.route) { OnboardingScreen(navController = navController) }
         composable(route = Screen.SignIn.route) { SignInScreen(navController = navController) }
         composable(route = Screen.SignUp.route) { SignUpScreen(navController = navController) }
+        composable(route = Screen.Home.route) { HomeScreen(navController = navController) }
     }
 }

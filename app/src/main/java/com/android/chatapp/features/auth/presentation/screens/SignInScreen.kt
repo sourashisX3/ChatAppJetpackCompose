@@ -58,7 +58,7 @@ fun SignInScreen(
                 buttonName = "Sign In",
                 text = "Don't have an account?",
                 textButtonName = "Sign Up",
-                onButtonClick = { navController.navigate(Screen.SignUp.route) },
+                onButtonClick = { navController.navigate(Screen.Home.route) },
                 onTextButtonClick = { navController.navigate(Screen.SignUp.route) }
             )
         }
@@ -104,16 +104,16 @@ fun SignInScreen(
                 onValueChange = { passwordController.value = it },
             )
             // --- Social Login ---
-            Spacer(modifier = Modifier.padding(top = 24.dp))
+            Spacer(modifier = Modifier.padding(top = 36.dp))
             OrDivider()
-            Spacer(modifier = Modifier.padding(top = 24.dp))
+            Spacer(modifier = Modifier.padding(top = 36.dp))
 
             SocialLoginButton(
                 icon = painterResource(R.drawable.google_ic),
                 buttonName = "Sign in with Google",
                 onButtonClick = { /* TODO */ },
             )
-            Spacer(modifier = Modifier.padding(top = 8.dp))
+            Spacer(modifier = Modifier.padding(top = 16.dp))
             SocialLoginButton(
                 icon = painterResource(R.drawable.facebook_ic),
                 buttonName = "Sign in with Facebook",

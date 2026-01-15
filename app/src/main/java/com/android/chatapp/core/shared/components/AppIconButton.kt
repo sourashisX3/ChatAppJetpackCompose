@@ -35,7 +35,7 @@ fun AppIconButton(
     val color = MaterialTheme.colorScheme.primary
 
     val finalSize = if (enforceMinTouchTarget) {
-        if (size < 48.dp) 48.dp else size
+        if (size < 36.dp) 36.dp else size
     } else size
 
     val interactionSource = remember { MutableInteractionSource() }
@@ -81,6 +81,16 @@ fun BackButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
     )
 }
 
+@Composable
+fun SearchIcon(modifier: Modifier = Modifier) {
+    AppIconButton(
+        modifier = modifier,
+        contentDescription = "Search",
+        iconPainter = painterResource(R.drawable.search_ic),
+        onClick = {}
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
 fun AppIconButtonPreview() {
@@ -92,4 +102,16 @@ fun AppIconButtonPreview() {
         iconSize = 18.dp,
         onClick = {}
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun BackButtonPreview() {
+    BackButton(onClick = {})
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SearchIconPreview() {
+    SearchIcon()
 }
