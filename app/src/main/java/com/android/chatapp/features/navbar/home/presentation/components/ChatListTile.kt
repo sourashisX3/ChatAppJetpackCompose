@@ -126,35 +126,30 @@ fun ChatUnreadMessages(
     val colorScheme = MaterialTheme.colorScheme
     val iconTint =
         if (isMessageReadByRecipient) colorScheme.success else colorScheme.onSurfaceVariant
+    val textStyle =
+        if (isMessageRead) textTheme.bodyMedium else textTheme.bodyMedium.copy(
+            fontWeight = FontWeight.Bold,
+            color = colorScheme.primary
+        )
 
-    if (isMessageRead)
-        Row(
-            modifier = modifier,
-            horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                painter = painterResource(R.drawable.tick_ic),
-                contentDescription = "Read Icon",
-                modifier = Modifier.size(12.dp),
-                colorFilter = ColorFilter.tint(iconTint)
-            )
-            Spacer(modifier = Modifier.width(4.dp))
-            Text(
-                text = lastMessage,
-                maxLines = 1,
-                style = textTheme.bodyMedium
-            )
-        }
-    else
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.Start,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            painter = painterResource(R.drawable.tick_ic),
+            contentDescription = "Read Icon",
+            modifier = Modifier.size(12.dp),
+            colorFilter = ColorFilter.tint(iconTint)
+        )
+        Spacer(modifier = Modifier.width(4.dp))
         Text(
             text = lastMessage,
             maxLines = 1,
-            style = textTheme.bodyMedium.copy(
-                fontWeight = FontWeight.Bold,
-                color = colorScheme.primary
-            )
+            style = textStyle
         )
+    }
 }
 
 @Composable
@@ -166,11 +161,8 @@ fun ChatUnreadMessageCount(
     val colorScheme = MaterialTheme.colorScheme
 
     fun unreadMessageCountHelper(count: String): String {
-        return if (count.length > 2) {
-            "99+"
-        } else {
-            count
-        }
+        return if (count.length > 2) "99+"
+        else count
     }
 
     Box(
@@ -202,7 +194,7 @@ fun ChatListTilePreview() {
             timestamp = "2:30 PM",
             unreadMessageCount = 2,
             isMessageRead = true,
-            isMessageReadByRecipient = true // show the green tick in preview
+            isMessageReadByRecipient = true
         )
     }
 }

@@ -12,10 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.android.chatapp.core.shared.miscellaneous.NoDataFoundScreen
 import com.android.chatapp.features.navbar.home.presentation.components.ChatListTile
 import com.android.chatapp.features.navbar.home.presentation.components.HomeScreenTopBar
@@ -25,7 +23,6 @@ import com.android.chatapp.features.navbar.home.presentation.components.UserProf
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    navController: NavHostController
 ) {
     val theme = MaterialTheme
     val textTheme = theme.typography
@@ -36,7 +33,7 @@ fun HomeScreen(
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(horizontal = 16.dp)
     ) {
         item {
             HomeScreenTopBar()
@@ -86,5 +83,5 @@ fun HomeScreen(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(navController = NavHostController(LocalContext.current))
+    HomeScreen()
 }
