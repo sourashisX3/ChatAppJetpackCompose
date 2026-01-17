@@ -73,6 +73,7 @@ fun MainScreen() {
                     title = topBarTitle,
                     isMoreIconVisible = currentRoute == Screen.Profile.route,
                     isSearchIconVisible = currentRoute == Screen.Home.route,
+                    isNewNotification = currentRoute == Screen.Home.route,
                 )
             }
         },

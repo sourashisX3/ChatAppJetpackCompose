@@ -41,10 +41,7 @@ fun AppNavBar(
     navItems: List<NavItem>
 ) {
     NavigationBar(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(64.dp)
-            .background(color = MaterialTheme.colorScheme.primary)
+        modifier = modifier.fillMaxWidth()
     ) {
         navItems.forEach { item ->
             val selected = item.matchRoutes.any { match ->

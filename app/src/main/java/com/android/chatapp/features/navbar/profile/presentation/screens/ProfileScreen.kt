@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.android.chatapp.core.shared.miscellaneous.NoDataFoundScreen
 import com.android.chatapp.features.navbar.profile.presentation.components.UserPastStories
 import com.android.chatapp.features.navbar.profile.presentation.components.UserProfileDetails
 
@@ -21,7 +22,6 @@ fun ProfileScreen(
     modifier: Modifier = Modifier
 ) {
     val textTheme = MaterialTheme.typography
-    val colorScheme = MaterialTheme.colorScheme
     val scrollState = rememberScrollState()
 
     Column(
@@ -45,7 +45,10 @@ fun ProfileScreen(
             style = textTheme.titleLarge,
         )
         Spacer(modifier = Modifier.height(16.dp))
-        UserPastStories(
+
+        val itemCnt = 10
+        if (itemCnt == 0) NoDataFoundScreen()
+        else UserPastStories(
             itemsCnt = 10,
         )
 

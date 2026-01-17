@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
@@ -105,13 +106,25 @@ fun ThreeDotIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
 }
 
 @Composable
-fun NotificationIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    AppIconButton(
-        modifier = modifier,
-        contentDescription = "Notifications",
-        iconPainter = painterResource(R.drawable.notificaion_bell_ic),
-        onClick = onClick
-    )
+fun NotificationIcon(
+    modifier: Modifier = Modifier,
+    isNewNotification: Boolean = false,
+    onClick: () -> Unit
+) {
+    Box {
+        AppIconButton(
+            modifier = modifier,
+            contentDescription = "Notifications",
+            iconPainter = painterResource(R.drawable.notificaion_bell_ic),
+            onClick = onClick
+        )
+        if (isNewNotification)
+            RedDotIndicator(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(end = 9.dp, top = 8.dp)
+            )
+    }
 }
 
 @Composable
@@ -137,6 +150,15 @@ fun AppIconButtonPreview() {
     )
 }
 
+@Composable
+fun RedDotIndicator(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .size(8.dp)
+            .background(color = MaterialTheme.colorScheme.error, shape = CircleShape)
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
 fun BackButtonPreview() {
@@ -147,4 +169,10 @@ fun BackButtonPreview() {
 @Composable
 fun SearchIconPreview() {
     SearchIcon(onClick = {})
+}
+
+@Preview(showBackground = true)
+@Composable
+fun NotificationIconPreview() {
+    NotificationIcon(onClick = {})
 }
