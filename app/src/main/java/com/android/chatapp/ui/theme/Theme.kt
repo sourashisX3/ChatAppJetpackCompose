@@ -1,6 +1,5 @@
 package com.android.chatapp.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -10,7 +9,10 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
+import androidx.compose.material3.ColorScheme
 
+// --- Color definitions ---
 private val DarkColorScheme = darkColorScheme(
     primary = primaryColor,
     secondary = secondaryColor,
@@ -19,7 +21,7 @@ private val DarkColorScheme = darkColorScheme(
     surface = darkSurfaceColor,
     outline = greyColor,
     error = errorColor,
-    onError = successColor,
+    onError = onErrorColor,
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -30,15 +32,15 @@ private val LightColorScheme = lightColorScheme(
     surface = lightSurfaceColor,
     outline = greyColor,
     error = errorColor,
-    onError = successColor,
-
-/*  onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),*/
+    onError = onErrorColor,
 )
 
+// --- Extension property for color ---
+
+val ColorScheme.success: Color
+    get() = successColor
+
+// --- Theme Composable ---
 @Composable
 fun ChatAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

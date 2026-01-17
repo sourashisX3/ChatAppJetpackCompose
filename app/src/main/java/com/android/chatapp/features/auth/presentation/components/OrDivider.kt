@@ -21,7 +21,9 @@ fun OrDivider(modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         HorizontalDivider(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .padding(8.dp),
             color = colorScheme.primary
         )
         Text(
@@ -33,7 +35,9 @@ fun OrDivider(modifier: Modifier = Modifier) {
             ),
         )
         HorizontalDivider(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .padding(8.dp),
             color = colorScheme.primary
         )
     }

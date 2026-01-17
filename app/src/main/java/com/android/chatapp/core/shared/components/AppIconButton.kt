@@ -1,5 +1,6 @@
 package com.android.chatapp.core.shared.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -27,7 +28,7 @@ fun AppIconButton(
     iconPainter: Painter,
     size: Dp = 24.dp,
     iconSize: Dp = 18.dp,
-    borderWidth: Dp = 1.dp,
+    borderWidth: Dp = 1.5.dp,
     showBorder: Boolean = true,
     enforceMinTouchTarget: Boolean = true,
     onClick: () -> Unit
@@ -56,7 +57,9 @@ fun AppIconButton(
 
     val content: @Composable () -> Unit = {
         Box(
-            modifier = modifier.then(clickableModifier),
+            modifier = modifier
+                .background(color = color.copy(alpha = 0.1f), shape = CircleShape)
+                .then(clickableModifier),
             contentAlignment = Alignment.Center
         ) {
             Icon(

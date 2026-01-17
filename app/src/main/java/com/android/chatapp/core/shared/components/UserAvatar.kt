@@ -1,7 +1,6 @@
 package com.android.chatapp.core.shared.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
@@ -13,25 +12,27 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.android.chatapp.R
 
 @Composable
-fun UserAvatar(modifier: Modifier = Modifier) {
+fun UserAvatar(
+    modifier: Modifier = Modifier,
+    imageUrl: String
+) {
 
-    val textTheme = MaterialTheme.typography
     val colorScheme = MaterialTheme.colorScheme
     val context = LocalContext.current
     val density = LocalDensity.current
     val imageDp = 64.dp
     val imagePx = with(density) { imageDp.roundToPx() }
-    val url = "https://example.com/user/profile.jpg"
 
-    val request = remember(url, imagePx) {
+    val request = remember(imageUrl, imagePx) {
         ImageRequest.Builder(context)
-            .data(url)
+            .data(imageUrl)
             .crossfade(true)
             .size(imagePx)
             .build()
@@ -40,7 +41,6 @@ fun UserAvatar(modifier: Modifier = Modifier) {
     val imageModifier = Modifier
         .size(imageDp)
         .clip(CircleShape)
-        .border(width = 2.dp, color = colorScheme.primary, shape = CircleShape)
         .background(color = colorScheme.primary.copy(alpha = 0.5f))
 
     AsyncImage(
@@ -51,4 +51,10 @@ fun UserAvatar(modifier: Modifier = Modifier) {
         contentScale = ContentScale.Crop,
         modifier = imageModifier
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun UserAvatarPreview() {
+    UserAvatar(imageUrl = "https://example.com/user/profile.jpg")
 }
