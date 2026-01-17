@@ -85,12 +85,32 @@ fun BackButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
 }
 
 @Composable
-fun SearchIcon(modifier: Modifier = Modifier) {
+fun SearchIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
     AppIconButton(
         modifier = modifier,
         contentDescription = "Search",
         iconPainter = painterResource(R.drawable.search_ic),
-        onClick = {}
+        onClick = onClick
+    )
+}
+
+@Composable
+fun ThreeDotIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    AppIconButton(
+        modifier = modifier,
+        contentDescription = "More Options",
+        iconPainter = painterResource(R.drawable.three_dot_ic),
+        onClick = onClick
+    )
+}
+
+@Composable
+fun CrossIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    AppIconButton(
+        modifier = modifier,
+        contentDescription = "Close",
+        iconPainter = painterResource(R.drawable.cross_ic),
+        onClick = onClick
     )
 }
 
@@ -116,5 +136,5 @@ fun BackButtonPreview() {
 @Preview(showBackground = true)
 @Composable
 fun SearchIconPreview() {
-    SearchIcon()
+    SearchIcon(onClick = {})
 }

@@ -28,6 +28,7 @@ data class NavItem(
     val route: String,
     val title: String,
     val iconRes: Int,
+    val selectedIconRes: Int,
     val matchRoutes: List<String> = listOf(route)
 )
 
@@ -55,7 +56,7 @@ fun AppNavBar(
                 onClick = { onNavigate(item.route) },
                 icon = {
                     Icon(
-                        painter = painterResource(id = item.iconRes),
+                        painter = painterResource(id = if (selected) item.selectedIconRes else item.iconRes),
                         contentDescription = item.title,
                         tint = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.size(18.dp)
@@ -114,28 +115,6 @@ fun AddChat(
             )
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun AppNavBarPreview() {
-    val navItems = listOf(
-        NavItem(
-            route = "home",
-            title = "Home",
-            iconRes = R.drawable.home_ic
-        ),
-        NavItem(
-            route = "chats",
-            title = "Chats",
-            iconRes = R.drawable.add_ic
-        ),
-        NavItem(
-            route = "settings",
-            title = "Settings",
-            iconRes = R.drawable.profile_ic
-        )
-    )
 }
 
 @Preview(showBackground = true)

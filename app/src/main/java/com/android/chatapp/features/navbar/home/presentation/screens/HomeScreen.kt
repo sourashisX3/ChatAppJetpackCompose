@@ -36,7 +36,9 @@ fun HomeScreen(
             .padding(horizontal = 16.dp)
     ) {
         item {
-            HomeScreenTopBar()
+            HomeScreenTopBar(
+                onSearchClick = { /* TODO: Handle search click */ }
+            )
             Spacer(modifier = Modifier.padding(8.dp))
         }
 

@@ -32,18 +32,21 @@ fun MainScreen() {
             route = Screen.Home.route,
             title = "Home",
             iconRes = R.drawable.home_ic,
+            selectedIconRes = R.drawable.home_filled_ic,
             matchRoutes = listOf(Screen.Home.route)
         ),
         NavItem(
             route = Screen.NewChat.route,
             title = "New Chat",
-            iconRes = R.drawable.add_ic,
+            iconRes = R.drawable.add_chat_ic,
+            selectedIconRes = R.drawable.add_chat_filled_ic,
             matchRoutes = listOf(Screen.NewChat.route)
         ),
         NavItem(
             route = Screen.Profile.route,
             title = "Profile",
             iconRes = R.drawable.profile_ic,
+            selectedIconRes = R.drawable.profile_filled_ic,
             matchRoutes = listOf(Screen.Profile.route)
         )
     )
