@@ -75,6 +75,8 @@ dependencies {
     // --- hilt dependency ---
     implementation(libs.hilt.android)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.compose.foundation.layout)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
 

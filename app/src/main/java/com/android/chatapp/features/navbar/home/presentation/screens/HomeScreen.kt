@@ -12,21 +12,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.android.chatapp.core.config.navigation.Screen
 import com.android.chatapp.core.shared.miscellaneous.NoDataFoundScreen
 import com.android.chatapp.features.navbar.home.presentation.components.ChatListTile
-import com.android.chatapp.features.navbar.home.presentation.components.HomeScreenTopBar
+import com.android.chatapp.features.navbar.home.presentation.components.EndChatListMessage
 import com.android.chatapp.features.navbar.home.presentation.components.UserProfilesAndNames
 
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
+    navController: NavHostController
 ) {
     val theme = MaterialTheme
     val textTheme = theme.typography
-
     val chatIndices = remember { List(50) { it } }
 
     // --- UI ---
@@ -35,13 +38,6 @@ fun HomeScreen(
             .fillMaxSize()
             .padding(horizontal = 16.dp)
     ) {
-        item {
-            HomeScreenTopBar(
-                onSearchClick = { /* TODO: Handle search click */ }
-            )
-            Spacer(modifier = Modifier.padding(8.dp))
-        }
-
         // --- User Profiles Row ---
         item {
             LazyRow {
@@ -74,9 +70,15 @@ fun HomeScreen(
                     timestamp = "12:${index}0 PM",
                     unreadMessageCount = index % 5,
                     isMessageRead = index % 2 == 0,
-                    isMessageReadByRecipient = index % 3 == 0
+                    isMessageReadByRecipient = index % 3 == 0,
+                    onClick = { navController.navigate(Screen.Chat.route) }
                 )
-                Spacer(modifier = Modifier.padding(bottom = 8.dp))
+            }
+
+            item {
+                EndChatListMessage(
+                    modifier = Modifier.padding(bottom = 56.dp, top = 16.dp)
+                )
             }
         }
     }
@@ -85,5 +87,5 @@ fun HomeScreen(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen(navController = NavHostController(LocalContext.current))
 }

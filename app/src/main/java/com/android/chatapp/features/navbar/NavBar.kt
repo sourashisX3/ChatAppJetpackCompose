@@ -44,7 +44,7 @@ fun AppNavBar(
         modifier = modifier
             .fillMaxWidth()
             .height(64.dp)
-            .background(color = MaterialTheme.colorScheme.onPrimary)
+            .background(color = MaterialTheme.colorScheme.primary)
     ) {
         navItems.forEach { item ->
             val selected = item.matchRoutes.any { match ->
@@ -53,7 +53,7 @@ fun AppNavBar(
 
             NavigationBarItem(
                 selected = selected,
-                onClick = { onNavigate(item.route) },
+                onClick = { if (!selected) onNavigate(item.route) },
                 icon = {
                     Icon(
                         painter = painterResource(id = if (selected) item.selectedIconRes else item.iconRes),

@@ -18,6 +18,7 @@ import com.android.chatapp.core.config.navigation.DefaultAppNavigator
 import com.android.chatapp.core.config.navigation.AppNavigator
 import com.android.chatapp.core.config.navigation.InitNavGraph
 import com.android.chatapp.core.config.navigation.Screen
+import com.android.chatapp.core.shared.components.AppTopBar
 
 @Composable
 fun MainScreen() {
@@ -51,15 +52,33 @@ fun MainScreen() {
         )
     )
 
+    // --- Main Scaffold ---
+
     val topLevelRoutes = navItems.flatMap { it.matchRoutes }
-    val showBottomBar = topLevelRoutes.any { match ->
+    val showBars = topLevelRoutes.any { match ->
         currentRoute == match || currentRoute.startsWith(match)
     }
+    val topBarTitle =
+        if (navItems.firstOrNull()?.route == currentRoute) "Blink Chat"
+        else navItems.find { it.route == currentRoute }?.title ?: "Blink Chat"
 
     Scaffold(
+        topBar = {
+            AnimatedVisibility(
+                visible = showBars,
+                enter = slideInVertically(initialOffsetY = { -it }) + fadeIn(),
+                exit = slideOutVertically(targetOffsetY = { -it }) + fadeOut()
+            ) {
+                AppTopBar(
+                    title = topBarTitle,
+                    isMoreIconVisible = currentRoute == Screen.Profile.route,
+                    isSearchIconVisible = currentRoute == Screen.Home.route,
+                )
+            }
+        },
         bottomBar = {
             AnimatedVisibility(
-                visible = showBottomBar,
+                visible = showBars,
                 enter = slideInVertically(initialOffsetY = { it }) + fadeIn(),
                 exit = slideOutVertically(targetOffsetY = { it }) + fadeOut()
             ) {
