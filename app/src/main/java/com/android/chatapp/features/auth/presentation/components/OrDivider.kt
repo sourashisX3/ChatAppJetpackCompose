@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun OrDivider(modifier: Modifier = Modifier) {
+fun OrDivider(modifier: Modifier = Modifier, text: String = "Or sign in with") {
     val colorScheme = MaterialTheme.colorScheme
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -28,7 +28,7 @@ fun OrDivider(modifier: Modifier = Modifier) {
         )
         Text(
             modifier = Modifier.padding(horizontal = 8.dp),
-            text = "Or sign in with",
+            text = text,
             style = MaterialTheme.typography.bodyMedium.copy(
                 color = colorScheme.primary,
                 fontWeight = FontWeight.Bold

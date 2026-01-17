@@ -21,7 +21,7 @@ import com.android.chatapp.R
 @Composable
 fun UserAvatar(
     modifier: Modifier = Modifier,
-    imageUrl: String
+    imageUrl: String,
 ) {
 
     val colorScheme = MaterialTheme.colorScheme
@@ -38,7 +38,7 @@ fun UserAvatar(
             .build()
     }
 
-    val imageModifier = Modifier
+    val imageModifier = modifier
         .size(imageDp)
         .clip(CircleShape)
         .background(color = colorScheme.primary.copy(alpha = 0.5f))

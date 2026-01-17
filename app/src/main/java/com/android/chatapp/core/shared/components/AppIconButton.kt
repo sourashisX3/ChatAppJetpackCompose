@@ -105,6 +105,16 @@ fun ThreeDotIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
 }
 
 @Composable
+fun NotificationIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    AppIconButton(
+        modifier = modifier,
+        contentDescription = "Notifications",
+        iconPainter = painterResource(R.drawable.notificaion_bell_ic),
+        onClick = onClick
+    )
+}
+
+@Composable
 fun CrossIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
     AppIconButton(
         modifier = modifier,
