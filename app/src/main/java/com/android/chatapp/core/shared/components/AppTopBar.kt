@@ -21,7 +21,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CommonTopBar(
     modifier: Modifier = Modifier,
-    title: String,
+    title: String? = null,
+    titleContent: @Composable (() -> Unit)? = null,
     actions: @Composable RowScope.() -> Unit = {},
     navigationIcon: @Composable (() -> Unit) = {},
     colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
@@ -33,8 +34,8 @@ fun CommonTopBar(
 
     TopAppBar(
         modifier = modifier,
-        title = {
-            Text(text = title, style = textTheme.displaySmall)
+        title = titleContent ?: {
+            Text(text = title ?: "", style = textTheme.displaySmall)
         },
         actions = actions,
         navigationIcon = navigationIcon,
@@ -56,6 +57,7 @@ fun AppTopBar(
     isNotificationIconVisible: Boolean = true,
     isSearchIconVisible: Boolean = false,
     isMoreIconVisible: Boolean = false,
+    isNewNotification: Boolean = false
 ) {
 
     val actions: @Composable RowScope.() -> Unit = {
@@ -72,7 +74,7 @@ fun AppTopBar(
         }
         // --- Notification Icon ---
         if (isNotificationIconVisible) {
-            NotificationIcon(onClick = onNotificationClick)
+            NotificationIcon(onClick = onNotificationClick, isNewNotification = isNewNotification)
             Spacer(modifier = Modifier.width(16.dp))
 
         }

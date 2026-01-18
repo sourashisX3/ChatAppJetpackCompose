@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
@@ -33,6 +34,7 @@ fun AppIconButton(
     enforceMinTouchTarget: Boolean = true,
     onClick: () -> Unit
 ) {
+    val colorScheme = MaterialTheme.colorScheme
     val color = MaterialTheme.colorScheme.primary
 
     val finalSize = if (enforceMinTouchTarget) {
@@ -46,7 +48,7 @@ fun AppIconButton(
         .then(
             if (showBorder) Modifier.border(
                 width = borderWidth,
-                color = color,
+                color = color.copy(alpha = 0.5f),
                 shape = CircleShape
             ) else Modifier
         )
@@ -58,14 +60,14 @@ fun AppIconButton(
     val content: @Composable () -> Unit = {
         Box(
             modifier = modifier
-                .background(color = color.copy(alpha = 0.1f), shape = CircleShape)
+                .background(color = color/*.copy(alpha = 0.3f)*/, shape = CircleShape)
                 .then(clickableModifier),
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 modifier = Modifier.size(iconSize),
                 painter = iconPainter,
-                tint = color,
+                tint = colorScheme.surface,
                 contentDescription = contentDescription
             )
         }
@@ -105,13 +107,25 @@ fun ThreeDotIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
 }
 
 @Composable
-fun NotificationIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    AppIconButton(
-        modifier = modifier,
-        contentDescription = "Notifications",
-        iconPainter = painterResource(R.drawable.notificaion_bell_ic),
-        onClick = onClick
-    )
+fun NotificationIcon(
+    modifier: Modifier = Modifier,
+    isNewNotification: Boolean = false,
+    onClick: () -> Unit
+) {
+    Box {
+        AppIconButton(
+            modifier = modifier,
+            contentDescription = "Notifications",
+            iconPainter = painterResource(R.drawable.notificaion_bell_ic),
+            onClick = onClick
+        )
+        if (isNewNotification)
+            RedDotIndicator(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(end = 9.dp, top = 8.dp)
+            )
+    }
 }
 
 @Composable
@@ -120,6 +134,38 @@ fun CrossIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
         modifier = modifier,
         contentDescription = "Close",
         iconPainter = painterResource(R.drawable.cross_ic),
+        onClick = onClick
+    )
+}
+
+@Composable
+fun CallIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    AppIconButton(
+        modifier = modifier,
+        contentDescription = "Call",
+        iconPainter = painterResource(R.drawable.phone_call_ic),
+        onClick = onClick
+    )
+}
+
+@Composable
+fun VideoCallIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    AppIconButton(
+        modifier = modifier,
+        contentDescription = "Video Call",
+        iconPainter = painterResource(R.drawable.video_call_ic),
+        onClick = onClick
+    )
+}
+
+@Composable
+fun SendMessageButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    AppIconButton(
+        modifier = modifier,
+        contentDescription = "Send Message",
+        iconPainter = painterResource(R.drawable.paper_plane_ic),
+        size = 56.dp,
+        iconSize = 24.dp,
         onClick = onClick
     )
 }
@@ -137,6 +183,19 @@ fun AppIconButtonPreview() {
     )
 }
 
+@Composable
+fun RedDotIndicator(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .size(8.dp)
+            .background(color = MaterialTheme.colorScheme.error, shape = CircleShape)
+    )
+}
+
+
+// --- icon Previews ---
+
+
 @Preview(showBackground = true)
 @Composable
 fun BackButtonPreview() {
@@ -147,4 +206,34 @@ fun BackButtonPreview() {
 @Composable
 fun SearchIconPreview() {
     SearchIcon(onClick = {})
+}
+
+@Preview(showBackground = true)
+@Composable
+fun NotificationIconPreview() {
+    NotificationIcon(onClick = {})
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ThreeDotIconPreview() {
+    ThreeDotIcon(onClick = {})
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CrossIconPreview() {
+    CrossIcon(onClick = {})
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CallIconPreview() {
+    CallIcon(onClick = {})
+}
+
+@Preview(showBackground = true)
+@Composable
+fun VideoCallIconPreview() {
+    VideoCallIcon(onClick = {})
 }

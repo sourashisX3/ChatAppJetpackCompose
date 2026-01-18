@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.android.chatapp.R
@@ -89,4 +90,13 @@ fun DateGradientOverlay(
             color = Color.White
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun StoryBoxPreview() {
+    StoryBox(
+        imageUrl = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3Rvcnl8ZW58MHx8MHx8fDA%3D&w=1000&q=800",
+        storyDate = "Jan 1, 2023"
+    )
 }

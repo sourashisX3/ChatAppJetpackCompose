@@ -27,12 +27,7 @@ fun ProfileBioBox(
             .fillMaxWidth()
             .background(
                 color = colorScheme.primary.copy(alpha = 0.3f),
-                shape = RoundedCornerShape(30.dp)
-            )
-            .border(
-                color = colorScheme.primary,
-                width = 1.5.dp,
-                shape = RoundedCornerShape(30.dp)
+                shape = RoundedCornerShape(16.dp)
             )
             .height(100.dp),
         contentAlignment = Alignment.Center
