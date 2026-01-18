@@ -30,7 +30,7 @@ import com.android.chatapp.R
 fun AppTextField(
     modifier: Modifier = Modifier,
     value: String,
-    label: String,
+    label: String? = null,
     leadingIcon: Painter? = null,
     onValueChange: (String) -> Unit,
     contentDescription: String? = null,
@@ -78,7 +78,7 @@ fun AppTextField(
             .fillMaxWidth(),
         value = value,
         onValueChange = onValueChange,
-        label = { Text(text = label) },
+        label = { Text(text = label ?: "") },
         supportingText = supportingText?.let { { Text(text = it) } } ?: {},
         placeholder = placeholderText?.let { { Text(text = it) } } ?: {},
         leadingIcon = {

@@ -14,6 +14,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -40,8 +41,14 @@ fun AppNavBar(
     onNavigate: (route: String) -> Unit,
     navItems: List<NavItem>
 ) {
+
+    val colorScheme = MaterialTheme.colorScheme
+    val textTheme = MaterialTheme.typography
+
     NavigationBar(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth(),
+        containerColor = colorScheme.surface,
+        contentColor = colorScheme.onSurface,
     ) {
         navItems.forEach { item ->
             val selected = item.matchRoutes.any { match ->
@@ -51,18 +58,25 @@ fun AppNavBar(
             NavigationBarItem(
                 selected = selected,
                 onClick = { if (!selected) onNavigate(item.route) },
+                colors = NavigationBarItemDefaults.colors(
+                   /* selectedIconColor = colorScheme.primary,
+                    unselectedIconColor = colorScheme.onSurface,
+                    selectedTextColor = colorScheme.primary,
+                    unselectedTextColor = colorScheme.onSurface,*/
+                    indicatorColor = colorScheme.primary.copy(alpha = 0.15f)
+                ),
                 icon = {
                     Icon(
                         painter = painterResource(id = if (selected) item.selectedIconRes else item.iconRes),
                         contentDescription = item.title,
-                        tint = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                        tint = if (selected) colorScheme.primary else colorScheme.onSurface,
                         modifier = Modifier.size(18.dp)
                     )
                 },
                 label = {
                     Text(
-                        text = item.title, style = MaterialTheme.typography.labelLarge.copy(
-                            color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                        text = item.title, style = textTheme.labelLarge.copy(
+                            color = if (selected) colorScheme.primary else colorScheme.onSurface
                         )
                     )
 

@@ -17,7 +17,7 @@ import com.android.chatapp.features.onboarding.presentation.screens.OnboardingSc
 @Composable
 fun InitNavGraph(
     navController: NavHostController = rememberNavController(),
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     startDestination: String = Screen.Onboarding.route,
 ) {
 

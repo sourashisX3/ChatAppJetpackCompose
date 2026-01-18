@@ -34,6 +34,7 @@ fun AppIconButton(
     enforceMinTouchTarget: Boolean = true,
     onClick: () -> Unit
 ) {
+    val colorScheme = MaterialTheme.colorScheme
     val color = MaterialTheme.colorScheme.primary
 
     val finalSize = if (enforceMinTouchTarget) {
@@ -47,7 +48,7 @@ fun AppIconButton(
         .then(
             if (showBorder) Modifier.border(
                 width = borderWidth,
-                color = color,
+                color = color.copy(alpha = 0.5f),
                 shape = CircleShape
             ) else Modifier
         )
@@ -59,14 +60,14 @@ fun AppIconButton(
     val content: @Composable () -> Unit = {
         Box(
             modifier = modifier
-                .background(color = color.copy(alpha = 0.1f), shape = CircleShape)
+                .background(color = color/*.copy(alpha = 0.3f)*/, shape = CircleShape)
                 .then(clickableModifier),
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 modifier = Modifier.size(iconSize),
                 painter = iconPainter,
-                tint = color,
+                tint = colorScheme.surface,
                 contentDescription = contentDescription
             )
         }
@@ -137,6 +138,38 @@ fun CrossIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
     )
 }
 
+@Composable
+fun CallIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    AppIconButton(
+        modifier = modifier,
+        contentDescription = "Call",
+        iconPainter = painterResource(R.drawable.phone_call_ic),
+        onClick = onClick
+    )
+}
+
+@Composable
+fun VideoCallIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    AppIconButton(
+        modifier = modifier,
+        contentDescription = "Video Call",
+        iconPainter = painterResource(R.drawable.video_call_ic),
+        onClick = onClick
+    )
+}
+
+@Composable
+fun SendMessageButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    AppIconButton(
+        modifier = modifier,
+        contentDescription = "Send Message",
+        iconPainter = painterResource(R.drawable.paper_plane_ic),
+        size = 56.dp,
+        iconSize = 24.dp,
+        onClick = onClick
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
 fun AppIconButtonPreview() {
@@ -159,6 +192,10 @@ fun RedDotIndicator(modifier: Modifier = Modifier) {
     )
 }
 
+
+// --- icon Previews ---
+
+
 @Preview(showBackground = true)
 @Composable
 fun BackButtonPreview() {
@@ -175,4 +212,28 @@ fun SearchIconPreview() {
 @Composable
 fun NotificationIconPreview() {
     NotificationIcon(onClick = {})
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ThreeDotIconPreview() {
+    ThreeDotIcon(onClick = {})
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CrossIconPreview() {
+    CrossIcon(onClick = {})
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CallIconPreview() {
+    CallIcon(onClick = {})
+}
+
+@Preview(showBackground = true)
+@Composable
+fun VideoCallIconPreview() {
+    VideoCallIcon(onClick = {})
 }
