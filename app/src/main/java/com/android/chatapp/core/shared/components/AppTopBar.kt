@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.android.chatapp.core.constants.StringConstants
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,7 +51,7 @@ fun CommonTopBar(
 @Composable
 fun AppTopBar(
     modifier: Modifier = Modifier,
-    title: String = "Blink Chat",
+    title: String = StringConstants.APP_NAME,
     onNotificationClick: () -> Unit = {},
     onSearchClick: () -> Unit = {},
     onMoreOptionsClick: () -> Unit = {},

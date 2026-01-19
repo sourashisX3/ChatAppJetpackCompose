@@ -18,7 +18,9 @@ import com.android.chatapp.core.config.navigation.DefaultAppNavigator
 import com.android.chatapp.core.config.navigation.AppNavigator
 import com.android.chatapp.core.config.navigation.InitNavGraph
 import com.android.chatapp.core.config.navigation.Screen
+import com.android.chatapp.core.constants.StringConstants
 import com.android.chatapp.core.shared.components.AppTopBar
+import com.android.chatapp.features.chat.presentation.components.ChatScreenTopBar
 
 @Composable
 fun MainScreen() {
@@ -54,32 +56,116 @@ fun MainScreen() {
 
     // --- Main Scaffold ---
 
+    fun showTopBar(): Boolean {
+        val topBarRoutes = listOf(
+            Screen.Home.route,
+            Screen.Profile.route,
+            Screen.NewChat.route,
+            Screen.Chat.route
+        )
+        return topBarRoutes.any { route ->
+            currentRoute == route || currentRoute.startsWith(route)
+        }
+    }
+
+    fun topBarHelper(
+        chatScreenUserName: String,
+        chatScreenUserStatus: String,
+        onSearchClick: () -> Unit,
+        onNotificationClick: () -> Unit,
+        onMoreOptionsClick: () -> Unit,
+        onCallClick: () -> Unit,
+        onVideoCallClick: () -> Unit
+    ): @Composable () -> Unit {
+        return when (currentRoute) {
+            Screen.Home.route -> {
+                {
+                    AppTopBar(
+                        title = StringConstants.APP_NAME,
+                        isSearchIconVisible = true,
+                        isNewNotification = true,
+                        onSearchClick = onSearchClick,
+                        onNotificationClick = onNotificationClick
+                    )
+                }
+            }
+
+            Screen.NewChat.route -> {
+                {
+                    AppTopBar(
+                        title = "New Chat",
+                        isNotificationIconVisible = true,
+                        onNotificationClick = onNotificationClick
+                    )
+                }
+            }
+
+            Screen.Profile.route -> {
+                {
+                    AppTopBar(
+                        title = "Profile",
+                        isMoreIconVisible = true,
+                        onMoreOptionsClick = onMoreOptionsClick,
+                    )
+                }
+            }
+
+            Screen.Chat.route -> {
+                {
+                    ChatScreenTopBar(
+                        userName = chatScreenUserName,
+                        userStatus = chatScreenUserStatus,
+                        onBackClick = { navController.popBackStack() },
+                        onCallClick = onCallClick,
+                        onVideoCallClick = onVideoCallClick
+                    )
+                }
+            }
+
+            else -> {
+                { AppTopBar(title = StringConstants.APP_NAME) }
+            }
+        }
+    }
+
     val topLevelRoutes = navItems.flatMap { it.matchRoutes }
-    val showBars = topLevelRoutes.any { match ->
+    val showBottomBar = topLevelRoutes.any { match ->
         currentRoute == match || currentRoute.startsWith(match)
     }
-    val topBarTitle =
-        if (navItems.firstOrNull()?.route == currentRoute) "Blink Chat"
-        else navItems.find { it.route == currentRoute }?.title ?: "Blink Chat"
+
+    val showTopBar = showTopBar()
+
+    /*val topBarTitle =
+        if (navItems.firstOrNull()?.route == currentRoute) StringConstants.APP_NAME
+        else navItems.find { it.route == currentRoute }?.title ?: StringConstants.APP_NAME*/
 
     Scaffold(
         topBar = {
             AnimatedVisibility(
-                visible = showBars,
+                visible = showTopBar,
                 enter = slideInVertically(initialOffsetY = { -it }) + fadeIn(),
                 exit = slideOutVertically(targetOffsetY = { -it }) + fadeOut()
             ) {
-                AppTopBar(
+                topBarHelper(
+                    chatScreenUserName = "John Doe",
+                    chatScreenUserStatus = "Online",
+                    onSearchClick = { /*TODO*/ },
+                    onNotificationClick = { /*TODO*/ },
+                    onMoreOptionsClick = { /*TODO*/ },
+                    onCallClick = { /*TODO*/ },
+                    onVideoCallClick = { /*TODO*/ }
+                ).invoke()
+                /*AppTopBar(
                     title = topBarTitle,
                     isMoreIconVisible = currentRoute == Screen.Profile.route,
                     isSearchIconVisible = currentRoute == Screen.Home.route,
                     isNewNotification = currentRoute == Screen.Home.route,
-                )
+                )*/
             }
         },
         bottomBar = {
             AnimatedVisibility(
-                visible = showBars,
+                visible = showBottomBar,
                 enter = slideInVertically(initialOffsetY = { it }) + fadeIn(),
                 exit = slideOutVertically(targetOffsetY = { it }) + fadeOut()
             ) {

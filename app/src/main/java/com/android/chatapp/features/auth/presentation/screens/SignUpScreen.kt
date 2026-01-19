@@ -1,6 +1,5 @@
 package com.android.chatapp.features.auth.presentation.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,7 +27,6 @@ import androidx.navigation.NavHostController
 import com.android.chatapp.R
 import com.android.chatapp.core.config.navigation.Screen
 import com.android.chatapp.core.shared.components.AppTextField
-import com.android.chatapp.core.shared.components.BackButton
 import com.android.chatapp.features.auth.presentation.components.AuthBottomBar
 import com.android.chatapp.features.auth.presentation.components.AuthTopBar
 
