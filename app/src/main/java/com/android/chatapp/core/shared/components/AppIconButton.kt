@@ -29,7 +29,7 @@ fun AppIconButton(
     iconPainter: Painter,
     size: Dp = 24.dp,
     iconSize: Dp = 18.dp,
-    borderWidth: Dp = 1.5.dp,
+    borderWidth: Dp = 1.dp,
     showBorder: Boolean = true,
     enforceMinTouchTarget: Boolean = true,
     onClick: () -> Unit
@@ -60,14 +60,14 @@ fun AppIconButton(
     val content: @Composable () -> Unit = {
         Box(
             modifier = modifier
-                .background(color = color/*.copy(alpha = 0.3f)*/, shape = CircleShape)
+                .background(color = color.copy(alpha = 0.15f), shape = CircleShape)
                 .then(clickableModifier),
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 modifier = Modifier.size(iconSize),
                 painter = iconPainter,
-                tint = colorScheme.surface,
+                tint = color,
                 contentDescription = contentDescription
             )
         }
@@ -159,6 +159,16 @@ fun VideoCallIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
 }
 
 @Composable
+fun PencilEditIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    AppIconButton(
+        modifier = modifier,
+        contentDescription = "Edit",
+        iconPainter = painterResource(R.drawable.pencil_edit_ic),
+        onClick = onClick
+    )
+}
+
+@Composable
 fun SendMessageButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
     AppIconButton(
         modifier = modifier,
@@ -236,4 +246,16 @@ fun CallIconPreview() {
 @Composable
 fun VideoCallIconPreview() {
     VideoCallIcon(onClick = {})
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SendMessageButtonPreview() {
+    SendMessageButton(onClick = {})
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PencilEditIconPreview() {
+    PencilEditIcon(onClick = {})
 }

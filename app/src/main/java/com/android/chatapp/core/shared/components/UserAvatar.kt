@@ -1,6 +1,8 @@
 package com.android.chatapp.core.shared.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
@@ -17,11 +19,22 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.android.chatapp.R
+import com.android.chatapp.ui.theme.success
+
+enum class UserAvatarStats {
+    NONE,
+    EDITABLE,
+    ONLINE,
+    OFFLINE,
+    AWAY,
+    BUSY,
+}
 
 @Composable
 fun UserAvatar(
     modifier: Modifier = Modifier,
     imageUrl: String,
+    mode: UserAvatarStats = UserAvatarStats.NONE
 ) {
 
     val colorScheme = MaterialTheme.colorScheme
@@ -38,18 +51,65 @@ fun UserAvatar(
             .build()
     }
 
+    val boxModifier = modifier.size(imageDp)
+
     val imageModifier = modifier
         .size(imageDp)
         .clip(CircleShape)
         .background(color = colorScheme.primary.copy(alpha = 0.5f))
 
-    AsyncImage(
-        model = request,
-        contentDescription = "User Profile",
-        placeholder = painterResource(R.drawable.profile_placeholder),
-        error = painterResource(R.drawable.profile_placeholder),
-        contentScale = ContentScale.Crop,
-        modifier = imageModifier
+    Box(
+        modifier = boxModifier
+    ) {
+        AsyncImage(
+            model = request,
+            contentDescription = "User Profile",
+            placeholder = painterResource(R.drawable.profile_placeholder),
+            error = painterResource(R.drawable.profile_placeholder),
+            contentScale = ContentScale.Crop,
+            modifier = imageModifier
+        )
+        when (mode) {
+            UserAvatarStats.ONLINE -> {
+                OnlineDot(
+                    modifier = Modifier
+                        .align(androidx.compose.ui.Alignment.BottomEnd)
+                )
+            }
+
+            UserAvatarStats.OFFLINE -> {
+                OfflineDot(
+                    modifier = Modifier
+                        .align(androidx.compose.ui.Alignment.BottomEnd)
+                )
+            }
+
+            else -> {
+                //TODO: No status dot
+            }
+        }
+    }
+}
+
+@Composable
+fun OnlineDot(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .size(16.dp)
+            .border(width = 2.dp, color = MaterialTheme.colorScheme.background, shape = CircleShape)
+            .clip(CircleShape)
+            .background(MaterialTheme.colorScheme.success)
+    )
+}
+
+@Composable
+fun OfflineDot(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .size(16.dp)
+            .border(width = 2.dp, color = MaterialTheme.colorScheme.background, shape = CircleShape)
+            .clip(CircleShape)
+            .background(MaterialTheme.colorScheme.error)
     )
 }
 

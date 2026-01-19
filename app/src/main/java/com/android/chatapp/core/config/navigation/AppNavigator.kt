@@ -11,6 +11,7 @@ class DefaultAppNavigator(private val navController: NavHostController) : AppNav
         navController.navigate(route) {
             popUpTo(navController.graph.startDestinationId) {
                 //TODO: Keep default behavior
+                saveState = true
             }
             launchSingleTop = true
             restoreState = true
