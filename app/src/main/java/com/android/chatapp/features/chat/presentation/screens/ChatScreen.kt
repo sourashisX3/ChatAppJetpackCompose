@@ -64,7 +64,7 @@ fun ChatBubble(
     val bottomEndPadding = if (isRecipient) 8.dp else 0.dp
     val bottomStartPadding = if (isRecipient) 0.dp else 8.dp
     val textAlignment = if (isRecipient) Alignment.CenterStart else Alignment.CenterEnd
-    val textColor = if (isRecipient) colorScheme.onSurface else colorScheme.onPrimary
+    val textColor = if (isRecipient) colorScheme.onSurface else colorScheme.surface
     val bubbleShape = RoundedCornerShape(
         topEnd = 8.dp,
         topStart = 8.dp,
@@ -111,7 +111,7 @@ fun DateHeader(
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
-                .background(MaterialTheme.colorScheme.surfaceVariant)
+                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f))
                 .padding(horizontal = 12.dp, vertical = 4.dp)
         ) {
             Text(

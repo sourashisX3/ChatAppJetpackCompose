@@ -17,7 +17,7 @@ val Nuito = FontFamily(
 
 )
 
-// Set of Material typography styles to start with
+// --- Set of Material typography styles ---
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = Nuito,
