@@ -42,8 +42,11 @@ fun HomeScreen(
         item {
             LazyRow {
                 items(10) { index ->
+
+                    val showAddStory = index == 0
+
                     UserProfilesAndNames(
-                        userName = "User $index",
+                        userName = if(showAddStory) "Add Story" else "User ${index - 1}",
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                 }
