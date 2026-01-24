@@ -1,5 +1,7 @@
 package com.android.chatapp.core.shared.components
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -12,6 +14,7 @@ import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -23,6 +26,7 @@ import com.android.chatapp.core.constants.StringConstants
 fun CommonTopBar(
     modifier: Modifier = Modifier,
     title: String? = null,
+    subtitle: String? = null,
     titleContent: @Composable (() -> Unit)? = null,
     actions: @Composable RowScope.() -> Unit = {},
     navigationIcon: @Composable (() -> Unit) = {},
@@ -32,11 +36,25 @@ fun CommonTopBar(
     scrollBehavior: TopAppBarScrollBehavior? = null
 ) {
     val textTheme = MaterialTheme.typography
+    val colorScheme = MaterialTheme.colorScheme
 
     TopAppBar(
         modifier = modifier,
         title = titleContent ?: {
-            Text(text = title ?: "", style = textTheme.displaySmall)
+            Column(
+                modifier = Modifier,
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.Start
+            ) {
+                Text(text = title ?: "", style = textTheme.headlineMedium)
+                if (subtitle != null) {
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = subtitle,
+                        style = textTheme.titleMedium.copy(color = colorScheme.primary)
+                    )
+                }
+            }
         },
         actions = actions,
         navigationIcon = navigationIcon,
@@ -52,6 +70,7 @@ fun CommonTopBar(
 fun AppTopBar(
     modifier: Modifier = Modifier,
     title: String = StringConstants.APP_NAME,
+    subtitle: String? = null,
     onNotificationClick: () -> Unit = {},
     onSearchClick: () -> Unit = {},
     onMoreOptionsClick: () -> Unit = {},
@@ -84,6 +103,7 @@ fun AppTopBar(
     CommonTopBar(
         modifier = modifier,
         title = title,
+        subtitle = subtitle,
         actions = actions,
     )
 }
@@ -91,5 +111,13 @@ fun AppTopBar(
 @Preview(showBackground = true)
 @Composable
 fun AppTopBarPreview() {
-    AppTopBar()
+    AppTopBar(
+        title = "Chat App",
+        subtitle = "Welcome Back! Sourashis",
+        isSearchIconVisible = true,
+        isNotificationIconVisible = true,
+        isNewNotification = true,
+        onSearchClick = {},
+        onNotificationClick = {},
+    )
 }

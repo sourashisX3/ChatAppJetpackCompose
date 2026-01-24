@@ -1,15 +1,20 @@
 package com.android.chatapp.features.navbar.profile.presentation.components
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.android.chatapp.R
 import com.android.chatapp.core.shared.components.UserAvatar
 
 @Composable
@@ -38,14 +43,39 @@ fun UserProfileDetails(
             text = userName,
             style = textTheme.headlineMedium,
         )
-        Text(
-            text = userEmail,
-            style = textTheme.bodyMedium,
-        )
-        Text(
-            text = userPhone,
-            style = textTheme.bodyMedium,
-        )
+        // --- Email ---
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.email_ic),
+                contentDescription = "email",
+                modifier = Modifier.size(18.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = userEmail,
+                style = textTheme.bodyMedium,
+            )
+        }
+
+        // --- Phone no ---
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.phone_ic),
+                contentDescription = "phone number",
+                modifier = Modifier.size(18.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = userPhone,
+                style = textTheme.bodyMedium,
+            )
+        }
+
+        // --- time ago ---
         Text(
             text = "Member since $memberSince",
             style = textTheme.titleMedium,
