@@ -82,6 +82,7 @@ fun MainScreen() {
                 {
                     AppTopBar(
                         title = StringConstants.APP_NAME,
+                        subtitle = "Welcome Back! Sourashis",
                         isSearchIconVisible = true,
                         isNewNotification = true,
                         onSearchClick = onSearchClick,

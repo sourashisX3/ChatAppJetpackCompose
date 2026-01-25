@@ -2,12 +2,17 @@ package com.android.chatapp.features.navbar.home.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,7 +34,9 @@ import com.android.chatapp.R
 @Composable
 fun UserProfilesAndNames(
     modifier: Modifier = Modifier,
-    userName: String
+    userName: String,
+    isAddStory: Boolean = false,
+    onClick: () -> Unit = { }
 ) {
     val textTheme = MaterialTheme.typography
     val colorScheme = MaterialTheme.colorScheme
@@ -49,24 +56,50 @@ fun UserProfilesAndNames(
 
     Column(
         modifier = modifier
-            .height(100.dp),
+            .height(100.dp)
+            .clip(shape = RoundedCornerShape(8.dp))
+            .clickable(onClick = onClick),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val imageModifier = Modifier
-            .size(imageDp)
-            .clip(CircleShape)
-            .border(width = 2.dp, color = colorScheme.primary, shape = CircleShape)
-            .background(color = colorScheme.primary.copy(alpha = 0.5f))
+        Box(
+            contentAlignment = Alignment.BottomEnd
+        ) {
+            val imageModifier = Modifier
+                .size(imageDp)
+                .clip(CircleShape)
+                .border(width = 2.dp, color = colorScheme.primary, shape = CircleShape)
+                .background(color = colorScheme.primary.copy(alpha = 0.5f))
 
-        AsyncImage(
-            model = request,
-            contentDescription = "User Profile",
-            placeholder = painterResource(R.drawable.profile_placeholder),
-            error = painterResource(R.drawable.profile_placeholder),
-            contentScale = ContentScale.Crop,
-            modifier = imageModifier
-        )
+            AsyncImage(
+                model = request,
+                contentDescription = "User Profile",
+                placeholder = painterResource(R.drawable.profile_placeholder),
+                error = painterResource(R.drawable.profile_placeholder),
+                contentScale = ContentScale.Crop,
+                modifier = imageModifier
+            )
+
+            // Add icon for "Add Story"
+            if (isAddStory) {
+                Box(
+                    modifier = Modifier
+                        .size(20.dp)
+                        .offset(x = (-2).dp, y = (-2).dp)
+                        .clip(CircleShape)
+                        .background(colorScheme.primary)
+                        .border(width = 2.dp, color = colorScheme.surface, shape = CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.add_ic),
+                        contentDescription = "Add Story",
+                        modifier = Modifier.size(12.dp),
+                        tint = colorScheme.surface
+                    )
+                }
+            }
+        }
         Spacer(modifier = Modifier.height(4.dp))
         Text(text = userName, style = textTheme.bodyMedium.copy(fontWeight = FontWeight.Bold))
     }
@@ -76,4 +109,10 @@ fun UserProfilesAndNames(
 @Composable
 fun UserProfilesAndNamesPreview() {
     UserProfilesAndNames(userName = "John Doe")
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AddStoryPreview() {
+    UserProfilesAndNames(userName = "Add Story", isAddStory = true)
 }

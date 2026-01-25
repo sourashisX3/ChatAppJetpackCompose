@@ -2,10 +2,10 @@ package com.android.chatapp.features.navbar.profile.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -35,13 +35,13 @@ fun StoryBox(
 
     Box(
         modifier = modifier
-            .height(200.dp)
-            .width(150.dp),
+            .fillMaxWidth()
+            .aspectRatio(0.75f),
     ) {
         AsyncImage(
-            modifier = modifier
-                .height(200.dp)
-                .width(150.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(0.75f)
                 .background(
                     color = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f),
                     shape = RoundedCornerShape(cornerRadius)
